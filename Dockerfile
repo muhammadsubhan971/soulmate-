@@ -12,6 +12,7 @@ FROM nginx:alpine
 COPY --from=build /app/build/web /usr/share/nginx/html
 
 # Configure Nginx to listen on the PORT environment variable (Railway provides this)
+RUN mkdir -p /etc/nginx/templates
 RUN echo 'server { listen ${PORT}; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/templates/default.conf.template
 
 EXPOSE 80
